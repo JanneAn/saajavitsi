@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Patrick+Hand&display=swap');
+
+
+.card {
+    margin: 1em;
+    width: calc(100%);
+    /* Fixed width, same as your index page */
+    box-shadow: 2px 5px 5px 0;
+    background-color: rgb(239, 253, 255);
+    font-family: 'Libre Baskerville';
+    text-align: center;
+    /* Center the text */
+}
+
+.card h1 {
+    color: rgb(176, 13, 13);
+}
+
+.weather-icon {
+    width: auto;
+    height: 100px;
+    /* Limit the icon height */
+    display: block;
+    margin: 0 auto;
+}
+
+.card-body {
+    padding: 10px;
+}
+
+html, body {
+    height: 100%; /* Varmistaa, että koko sivu käyttää 100 % korkeudesta */
+    margin: 0;
+}
+
+body {
+    background-color: rgb(226, 252, 141);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Jakaa tilan sisällön ja footerin välillä */
+    min-height: 100vh; /* Varmistaa, että sivu käyttää aina vähintään näkymän koko korkeutta */
+}
+
+.container {
+    flex: 1; /* Varmistaa, että sisältö venyy tarpeen mukaan */
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    margin-top: auto; /* Työntää footerin sivun alalaitaan */
+}

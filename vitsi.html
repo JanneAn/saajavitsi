@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Tehtävä 4</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="vitsi.css">
+</head>
+
+<body>
+
+    <!-- Lisätään otsikko, sekä alaotsikko ja lisätään niihin väriä ja muotoilua -->
+    <div class="p-5 bg-warning text-danger text-center">
+        <h1>Säätiedotus ja vitsi</h1>
+        <h5>Ainoa sivusto, josta saat sekä säätiedotuksen, että vitsin!</h5>
+    </div>
+
+    <!-- Luodaan navigaatiopalkki -->
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <div class="container-fluid">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="index.html">Säätiedot</a></li>
+                <li class="nav-item"><a class="nav-link" href="velitseSaa.html">Etsi sää</a></li>
+                <li class="nav-item"><a class="nav-link active text-danger" href="vitsi.html">Vitsi</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Luodaan container elementti vitsille -->
+    <div class="container mt-5">
+        <!-- Lisätään otsikko ja lisätään div, johon vitsi tulee id:n kautta -->
+        <h2>Päivän vitsi</h2>
+        <div id="vitsi">Haetaan vitsiä...</div>
+    </div>
+
+    <!-- Tehdään alatunniste -->
+    <footer class="mt-5 p-4 bg-dark text-white text-center">
+        <p> &copy; Säätiedotus ja vitsi</p>
+    </footer>
+
+    <script>
+        // Funktio vitsin hakemiseen ja näyttämiseen
+        function haeVitsi() {
+            // Haetaan vitsi ulkoisesta jokeapi-palvelusta. Määritellään, että vitsin täytyy olla kaksiosainen.
+            fetch('https://v2.jokeapi.dev/joke/Any?type=twopart')
+                .then(function (response) {
+                    return response.json();
+                })
+                // Jos haku onnistu, siirrytään funktioon
+                .then(function (data) {
+                    // Luodaan vitsi haitarimuotoon, jotta vastauksen saa vasta avatessa haitarin
+                    var vitsi = `
+                        <div class="accordion container" id="accordionExample">
+                            <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                                                aria-expanded="true" aria-controls="collapseOne">
+                                    ${data.setup}
+                                </button>
+                            </h2>
+                             <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    ${data.delivery}
+                                    <br><br>
+                                    <button class="btn btn-danger" onclick="haeVitsi()">Hae uusi vitsi</button>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    `;
+                    // Viedään vitsi näkyviin
+                    document.getElementById("vitsi").innerHTML = vitsi;
+                })
+                // Jos haku ei onnistunut, näytetään virheilmoitus
+                .catch(function (error) {
+                    document.getElementById("vitsi").innerHTML = "<p>Vitsiä ei voitu hakea</p>";
+                });
+        }
+
+        // Haetaan vitsi, kun sivu ladataan
+        haeVitsi();
+    </script>
+
+</body>
+
+</html>
